@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Giles Van Gruisen. All rights reserved.
 //
 
-#import "Reduce.h"
+#import "NSArray+Reduce.h"
 
 @implementation NSArray (Reduce)
 
