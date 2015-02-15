@@ -6,37 +6,31 @@
 //  Copyright (c) 2015 Giles Van Gruisen. All rights reserved.
 //
 
-#import "NSArray+Reduce.h"
+#import "Reduce.h"
 
 @implementation NSArray (Reduce)
 
-- (id (^)(id, ReduceBlock))reduce
+- (id)reduce:(id)initial combine:(ReduceBlock)combine
 {
-    return ^id (id accum, ReduceBlock combine) {
-        for (id object in self) {
-            accum = combine(accum, object);
-        }
+    for (id object in self) {
+        initial = combine(initial, object);
+    }
 
-        return accum;
-    };
+    return initial;
 }
 
-- (NSArray *(^)(FilterBlock))filter
+- (NSArray *)filter:(FilterBlock)filter
 {
-    return ^NSArray *(FilterBlock filter) {
-        return [self reduce]([@[] mutableCopy], ^NSMutableArray *(NSMutableArray *accum, id object) {
-            return filter(object) ? [[accum arrayByAddingObject:object] mutableCopy] : accum;
-        });
-    };
+    return [self reduce:[@[] mutableCopy] combine: ^NSMutableArray *(NSMutableArray *accum, id object) {
+        return filter(object) ? [[accum arrayByAddingObject:object] mutableCopy] : accum;
+    }];
 }
 
-- (NSArray *(^)(MapBlock))map
+- (NSArray *)map:(MapBlock)map
 {
-    return ^NSArray *(MapBlock map) {
-        return [self reduce]([@[] mutableCopy], ^NSMutableArray *(NSMutableArray *accum, id object) {
-            return [[accum arrayByAddingObject:map(object)] mutableCopy];
-        });
-    };
+    return [self reduce:[@[] mutableCopy] combine: ^NSMutableArray *(NSMutableArray *accum, id object) {
+        return [[accum arrayByAddingObject:map(object)] mutableCopy];
+    }];
 }
 
 @end

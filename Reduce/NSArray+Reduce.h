@@ -14,8 +14,8 @@ typedef id (^MapBlock)(id object);
 
 @interface NSArray (Reduce)
 
-- (id(^)(id, ReduceBlock))reduce;
-- (NSArray *(^)(FilterBlock))filter;
-- (NSArray *(^)(MapBlock))map;
+- (id)reduce:(id)initial combine:(ReduceBlock)combine;
+- (NSArray *)filter:(FilterBlock)filter;
+- (NSArray *)map:(MapBlock)map;
 
 @end
