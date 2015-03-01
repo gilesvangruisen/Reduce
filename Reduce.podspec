@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'Reduce'
-  s.version = '0.2'
+  s.version = '0.2.1'
   s.authors = {'Giles Van Gruisen' => 'giles@vangruisen.com'}
   s.homepage = 'https://github.com/gilesvangruisen/Reduce'
   s.summary = 'An Objective-C category on NSArray, providing helpful array functions like `reduce`, `filter`, and `map`.'
